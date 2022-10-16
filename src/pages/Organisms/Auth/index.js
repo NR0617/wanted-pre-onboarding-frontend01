@@ -16,7 +16,6 @@ const Auth = () => {
         setPassword("");
         setIsValid(true);
     };
-
     useEffect(() => {
         const accessToken = localStorage.getItem("AccessToken");
         if (accessToken) navigate("/todos");
@@ -63,7 +62,6 @@ const Auth = () => {
                 }
             });
         } catch (e) {
-            console.log(e);
             if (e.response.status === 404) {
                 alert("해당 사용자가 존재하지 않습니다");
             } else if (e.response.status === 401) {

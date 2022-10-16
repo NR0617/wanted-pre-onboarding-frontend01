@@ -1,7 +1,7 @@
-import axios from "axios";
 import { useState } from "react";
 import * as Styled from "./style";
 import { TextInput } from "../../Atom/TextInput";
+import { client } from "../../../util/axios";
 
 const ItemsList = ({ item, setList }) => {
     const [isUpdate, setIsUpdate] = useState(false);
@@ -16,14 +16,7 @@ const ItemsList = ({ item, setList }) => {
     const handleCompleted = async (event) => {
         setIsCheck(event.target.checked);
         try {
-            await axios({
-                method: "put",
-                url: `${process.env.REACT_APP_SERVER}/todos/${item.id}`,
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem(
-                        "AccessToken"
-                    )}`,
-                },
+            client("put", `/todos/${item.id}`, {
                 data: { todo: todo, isCompleted: event.target.checked },
             }).then((res) => {
                 if (res.status === 200)
@@ -45,15 +38,7 @@ const ItemsList = ({ item, setList }) => {
     };
     const handleDeleteTodo = async () => {
         try {
-            await axios({
-                method: "delete",
-                url: `${process.env.REACT_APP_SERVER}/todos/${item.id}`,
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem(
-                        "AccessToken"
-                    )}`,
-                },
-            }).then((res) => {
+            await client("delete", `/todos/${item.id}}`).then((res) => {
                 if (res.status === 204)
                     setList((prev) => {
                         const arr = prev.filter((el) => el.id !== item.id);
@@ -67,14 +52,7 @@ const ItemsList = ({ item, setList }) => {
     };
     const handleUpdateTodo = async () => {
         try {
-            await axios({
-                method: "put",
-                url: `${process.env.REACT_APP_SERVER}/todos/${item.id}`,
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem(
-                        "AccessToken"
-                    )}`,
-                },
+            await client("put", `/todos/${item.id}`, {
                 data: { todo: todo, isCompleted: isCheck },
             }).then((res) => {
                 if (res.status === 200)

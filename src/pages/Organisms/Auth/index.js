@@ -1,8 +1,8 @@
 import * as Styled from "./style";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import NotValidContent from "../../Atom/NotValidContent";
+import { noTokenClient } from "../../../util/axios";
 
 const Auth = () => {
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ const Auth = () => {
     const [isValid, setIsValid] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const handleButton = () => {
+    const handleShowButton = () => {
         setIsSignUp(!isSignUp);
         setEmail("");
         setPassword("");
@@ -50,9 +50,7 @@ const Auth = () => {
         if (!email.includes("@") || password.length < 8)
             return alert("이메일과 8자리 이상의 비밀번호를 입력해주세요");
         try {
-            await axios({
-                method: "post",
-                url: `${process.env.REACT_APP_SERVER}/auth/${endPoint}`,
+            await noTokenClient("post", `/auth/${endPoint}`, {
                 data: {
                     email,
                     password,
@@ -65,6 +63,7 @@ const Auth = () => {
                 }
             });
         } catch (e) {
+            console.log(e);
             if (e.response.status === 404) {
                 alert("해당 사용자가 존재하지 않습니다");
             } else if (e.response.status === 401) {
@@ -120,9 +119,13 @@ const Auth = () => {
                 </Styled.SignInBtn>
             )}
             {isSignUp ? (
-                <Styled.Link onClick={handleButton}>회원가입 하기</Styled.Link>
+                <Styled.Link onClick={handleShowButton}>
+                    회원가입 하기
+                </Styled.Link>
             ) : (
-                <Styled.Link onClick={handleButton}>로그인 하기</Styled.Link>
+                <Styled.Link onClick={handleShowButton}>
+                    로그인 하기
+                </Styled.Link>
             )}
         </Styled.PageContainer>
     );

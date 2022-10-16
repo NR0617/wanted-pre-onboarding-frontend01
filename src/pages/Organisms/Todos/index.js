@@ -1,9 +1,9 @@
 import * as Styled from "./style";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import ItemsList from "../../molecules/Todos/index";
 import NotValidContent from "../../Atom/NotValidContent";
+import { client } from "../../../util/axios";
 
 const Todos = () => {
     const navigate = useNavigate();
@@ -20,13 +20,7 @@ const Todos = () => {
         if (!accessToken) navigate("/");
     }, []);
     useEffect(() => {
-        axios({
-            method: "get",
-            url: `${process.env.REACT_APP_SERVER}/todos`,
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem("AccessToken")}`,
-            },
-        }).then((res) => {
+        client("get", "/todos").then((res) => {
             if (res.status === 200) setList(res.data);
         });
     }, []);
@@ -40,15 +34,7 @@ const Todos = () => {
             return setIsValid(false);
         } else {
             try {
-                await axios({
-                    method: "post",
-                    url: `${process.env.REACT_APP_SERVER}/todos`,
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "AccessToken"
-                        )}`,
-                        "Content-Type": "application/json",
-                    },
+                await client("post", "/todos", {
                     data: {
                         todo,
                     },

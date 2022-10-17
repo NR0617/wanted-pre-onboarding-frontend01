@@ -19,7 +19,7 @@ export const InputBtnBox = styled.div`
 export const TodoInput = styled.input`
     border-radius: 5px;
     width: 500px;
-    height: 50px;
+    height: 45px;
     margin: 5px 20px 5px 0px;
     padding: 5px;
     font-size: 20px;
@@ -34,7 +34,7 @@ export const AddItemBtn = styled.button`
     border-radius: 5px;
     margin: 5px 0px 5px 10px;
     padding: 5px 15px 5px 15px;
-    font-size: 20px;
+    font-size: 15px;
     width: 110px;
     overflow: hidden;
     &:hover {

@@ -23,7 +23,7 @@ export const SingleItemBtn = styled.button`
     width: 53px;
     margin: 10px 0px 10px 5px;
     padding: 10px 5px 10px 5px;
-    font-size: 20px;
+    font-size: 15px;
     &:hover {
         color: white;
         background-color: black;

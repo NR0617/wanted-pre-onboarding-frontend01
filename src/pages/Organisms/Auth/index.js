@@ -98,6 +98,7 @@ const Auth = () => {
                 onChange={handleUserData}
                 isValid={isValid}
                 value={password}
+                type="password"
             />
             <div>
                 {!isValid && (

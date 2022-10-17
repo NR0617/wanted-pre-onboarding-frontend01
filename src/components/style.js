@@ -7,6 +7,9 @@ export const Header = styled.div`
     margin-bottom: 30px;
     background-color: black;
     color: white;
+    @media (max-width: 576px) {
+        width: 100%;
+    }
 `;
 
 export const ApplicationTitle = styled.p`

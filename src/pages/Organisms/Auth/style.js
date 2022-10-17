@@ -22,6 +22,9 @@ export const UserData = styled.input`
     }
     border-color: ${(props) => `${props.isValid ? null : "red"}`};
     box-shadow: ${(props) => `${props.isValid ? null : "0px 0px 2px 1px red"}`};
+    @media (max-width: 576px) {
+        width: 80vw;
+    }
 `;
 
 export const SignInBtn = styled.button`
@@ -36,6 +39,9 @@ export const SignInBtn = styled.button`
     &:hover {
         color: black;
         background-color: lightgray;
+    }
+    @media (max-width: 576px) {
+        width: 80vw;
     }
 `;
 

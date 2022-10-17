@@ -28,6 +28,9 @@ export const TodoInput = styled.input`
     }
     border-color: ${(props) => `${props.isValid ? null : "red"}`};
     box-shadow: ${(props) => `${props.isValid ? null : "0px 0px 2px 1px red"}`};
+    @media (max-width: 576px) {
+        width: 50vw;
+    }
 `;
 export const AddItemBtn = styled.button`
     background-color: white;
